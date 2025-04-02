@@ -19,30 +19,31 @@ body {
 /* Container for buttons */
 .button-container {
     display: flex;              /* Use Flexbox to align buttons side by side */
-    justify-content: center;    /* Align buttons horizontally in the center */
-    gap: 5px;                  /* Optional: Add space between buttons */
+    justify-content: space-between; /* Distribute buttons with space between */
+    gap: 10px;                  /* Optional: Add small gap between buttons */
+    width: 80%;                 /* Limit the container's width */
 }
 
 /* Styling for image buttons */
 .image-button {
     display: inline-block;
-    width: 50px;               /* Set fixed width for the button */
-    height: 50px;              /* Set fixed height for the button */
-    border: none;               /* Remove button border */
-    background: none;           /* Remove background */
-    cursor: pointer;           /* Make the button clickable */
+    width: 20%;                /* Set the width of each button to 20% of the container width */
+    height: 100px;             /* Set fixed height for the button */
+    border: none;              /* Remove button border */
+    background: none;          /* Remove background */
+    cursor: pointer;          /* Make the button clickable */
 }
 
 /* Style the images inside the buttons */
 .image-button img {
-    width: 100%;                /* Make the image take up the full width of the button */
-    height: 100%;               /* Make the image take up the full height of the button */
-    object-fit: cover;          /* Ensure the image covers the button without distortion */
+    width: 100%;               /* Make the image take up the full width of the button */
+    height: 100%;              /* Make the image take up the full height of the button */
+    object-fit: cover;         /* Ensure the image covers the button without distortion */
 }
 
 /* Optional: Add hover effect */
 .image-button:hover img {
-    opacity: 0.8;               /* Slight opacity change on hover */
+    opacity: 0.8;              /* Slight opacity change on hover */
 }
 
 /* Responsive: Stack buttons on smaller screens */
