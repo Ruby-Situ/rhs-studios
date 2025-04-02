@@ -16,37 +16,45 @@ body {
     margin: 0;
 }
 
-/* Container for the buttons */
+/* Container for buttons */
 .button-container {
-    text-align: center;
+    display: flex;              /* Use Flexbox to align buttons side by side */
+    justify-content: center;    /* Align buttons horizontally in the center */
+    gap: 20px;                  /* Optional: Add space between buttons */
 }
 
-/* Styling for each button */
-.button {
+/* Styling for image buttons */
+.image-button {
     display: inline-block;
-    background-color: #4CAF50; /* Green background */
-    color: white;
-    padding: 15px 30px;
-    margin: 10px;
-    text-decoration: none; /* Remove underline from links */
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background-color 0.3s ease; /* Smooth color change on hover */
+    width: 100px;               /* Set fixed width for the button */
+    height: 100px;              /* Set fixed height for the button */
+    border: none;               /* Remove button border */
+    background: none;           /* Remove background */
+    cursor: pointer;           /* Make the button clickable */
 }
 
-.button:hover {
-    background-color: #45a049; /* Darker green when hovering */
+/* Style the images inside the buttons */
+.image-button img {
+    width: 100%;                /* Make the image take up the full width of the button */
+    height: 100%;               /* Make the image take up the full height of the button */
+    object-fit: cover;          /* Ensure the image covers the button without distortion */
+}
+
+/* Optional: Add hover effect */
+.image-button:hover img {
+    opacity: 0.8;               /* Slight opacity change on hover */
 }
 
 /* Responsive: Stack buttons on smaller screens */
 @media (max-width: 600px) {
     .button-container {
-        display: flex;
-        flex-direction: column;
+        flex-direction: column; /* Stack buttons vertically */
+        align-items: center;    /* Center the buttons */
     }
 
-    .button {
-        width: 80%; /* Make buttons fill most of the width */
-        margin: 10px auto;
+    .image-button {
+        width: 80%;             /* Make buttons fill most of the width */
+        height: auto;           /* Maintain the aspect ratio */
+        margin: 10px auto;      /* Add margin between stacked buttons */
     }
 }
