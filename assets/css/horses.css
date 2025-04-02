@@ -1,0 +1,52 @@
+/* General Reset to remove margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Basic page styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Light gray background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container for the buttons */
+.button-container {
+    text-align: center;
+}
+
+/* Styling for each button */
+.button {
+    display: inline-block;
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    padding: 15px 30px;
+    margin: 10px;
+    text-decoration: none; /* Remove underline from links */
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Smooth color change on hover */
+}
+
+.button:hover {
+    background-color: #45a049; /* Darker green when hovering */
+}
+
+/* Responsive: Stack buttons on smaller screens */
+@media (max-width: 600px) {
+    .button-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .button {
+        width: 80%; /* Make buttons fill most of the width */
+        margin: 10px auto;
+    }
+}
