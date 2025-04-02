@@ -12,7 +12,10 @@ albums.forEach(album => {
     // Function to show the image based on index
     function showImage(index) {
         images.forEach((img, i) => {
-            img.style.display = (i === index) ? 'block' : 'none';
+            img.classList.remove('active');  // Hide all images
+            if (i === index) {
+                img.classList.add('active');  // Show the current image
+            }
         });
     }
 
