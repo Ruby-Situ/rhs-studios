@@ -1,0 +1,81 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Album Grid */
+.album-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);  /* 3 columns */
+    gap: 20px;
+    max-width: 90%;  /* Prevent it from going too wide */
+    margin: 20px;
+}
+
+/* Styling for each Album */
+.album {
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+/* Album Image Styling */
+.album-images {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;  /* Hide images that exceed the container */
+    position: relative;
+}
+
+.album-images img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;  /* Hide all images initially */
+}
+
+/* Show the first image */
+.album-images img:first-child {
+    display: block;
+}
+
+/* Left and Right Navigation */
+.album-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.album-nav.left {
+    left: 10px;
+}
+
+.album-nav.right {
+    right: 10px;
+}
+
+/* Hover effects for nav buttons */
+.album-nav:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
