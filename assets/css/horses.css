@@ -20,14 +20,14 @@ body {
 .button-container {
     display: flex;              /* Use Flexbox to align buttons side by side */
     justify-content: center;    /* Align buttons horizontally in the center */
-    gap: 20px;                  /* Optional: Add space between buttons */
+    gap: 5px;                  /* Optional: Add space between buttons */
 }
 
 /* Styling for image buttons */
 .image-button {
     display: inline-block;
-    width: 100px;               /* Set fixed width for the button */
-    height: 100px;              /* Set fixed height for the button */
+    width: 80px;               /* Set fixed width for the button */
+    height: 80px;              /* Set fixed height for the button */
     border: none;               /* Remove button border */
     background: none;           /* Remove background */
     cursor: pointer;           /* Make the button clickable */
