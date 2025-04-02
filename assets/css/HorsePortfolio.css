@@ -49,9 +49,8 @@ body {
     display: none;  /* Hide all images initially */
 }
 
-/* Show the first image */
-.album-images img:first-child {
-    display: block;
+.album-images img.active {
+    display: block;  /* Only show the active image */
 }
 
 /* Left and Right Navigation */
