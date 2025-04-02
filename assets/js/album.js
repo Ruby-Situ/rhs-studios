@@ -1,22 +1,40 @@
-// Function to change the active image within an album
-function changeImage(button, direction) {
-    const albumContainer = button.closest('.album-container'); // Find the closest album container
-    const images = albumContainer.querySelectorAll('.album-images img'); // Get all images in this album
-    let currentIndex = Array.from(images).findIndex(img => img.classList.contains('active')); // Get the current image index
+// Define albums with images
+const albums = {
+    album1: ['assets/images/Trad.jpg', 'assets/images/classic.jpg'],
+    album2: ['assets/images/Trad.jpg', 'assets/images/classic.jpg']
+};
 
-    // Remove the active class from the current image
-    images[currentIndex].classList.remove('active');
+// Track the current image index for each album
+const albumIndexes = {
+    album1: 0,
+    album2: 0
+};
 
-    // Update the index for the next image
-    currentIndex = (currentIndex + direction + images.length) % images.length; // Ensure it wraps around (circular navigation)
+// Function to change image in the album
+function navigate(album, direction) {
+    const albumArray = albums[album];
+    let currentIndex = albumIndexes[album];
 
-    // Add the active class to the next image
-    images[currentIndex].classList.add('active');
+    // Update index based on the navigation direction
+    currentIndex += direction;
+
+    // Loop around the index if we go out of bounds
+    if (currentIndex < 0) {
+        currentIndex = albumArray.length - 1; // Go to the last image
+    } else if (currentIndex >= albumArray.length) {
+        currentIndex = 0; // Go back to the first image
+    }
+
+    // Update the image source and the index
+    albumIndexes[album] = currentIndex;
+    document.getElementById(`image${album.replace('album', '')}`).src = `${album}/${albumArray[currentIndex]}`;
 }
 
-// Initialization for each album (show the first image)
-document.querySelectorAll('.album-images img').forEach((img, index) => {
-    if (index === 0) {
-        img.classList.add('active');
+// Initialize albums when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Set initial images
+    for (let album in albums) {
+        const albumArray = albums[album];
+        document.getElementById(`image${album.replace('album', '')}`).src = `${album}/${albumArray[0]}`;
     }
 });

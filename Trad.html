@@ -1,38 +1,32 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <title>Image Grid Example</title>
-    <link rel="stylesheet" href="HorsePortfolios.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Albums with Navigation</title>
+    <link rel="stylesheet" href="HorsePortfolio.css">
 </head>
 <body>
-    <button onclick="window.location.href='Horses.html';">Back</button>
-    
-    <div class="album-container">
-        <!-- First Album -->
-        <div class="album-nav left" onclick="changeImage(this, -1)">&lt;</div> <!-- Left button for navigation -->
-        <div class="album">
-            <div class="album-images">
-                <img src="assets/images/Trad.jpg" alt="Album 1 Image 1" class="active">
-                <img src="assets/images/classic.jpg" alt="Album 1 Image 2">
-                <img src="assets/images/micro.jpg" alt="Album 1 Image 3">
+    <div id="albums-container">
+        <div class="album" id="album1">
+            <h2>Album 1</h2>
+            <div class="image-viewer">
+                <button class="prev" onclick="navigate('album1', -1)">&#8592;</button>
+                <img id="image1" class="image" src="assets/images/Trad.jpg" alt="Image 1">
+                <button class="next" onclick="navigate('album1', 1)">&#8594;</button>
             </div>
-            <div class="album-nav right" onclick="changeImage(this, 1)">&gt;</div> <!-- Right button for navigation -->
-        </div>
-        <!-- First Album -->
-        <div class="album-nav left" onclick="changeImage(this, -1)">&lt;</div> <!-- Left button for navigation -->
-        <div class="album">
-            <div class="album-images">
-                <img src="assets/images/Trad.jpg" alt="Album 1 Image 1" class="active">
-                <img src="assets/images/classic.jpg" alt="Album 1 Image 2">
-                <img src="assets/images/micro.jpg" alt="Album 1 Image 3">
-            </div>
-            <div class="album-nav right" onclick="changeImage(this, 1)">&gt;</div> <!-- Right button for navigation -->
         </div>
 
+        <div class="album" id="album2">
+            <h2>Album 2</h2>
+            <div class="image-viewer">
+                <button class="prev" onclick="navigate('album2', -1)">&#8592;</button>
+                <img id="image2" class="image" src="assets/images/classic.jpg" alt="Image 1">
+                <button class="next" onclick="navigate('album2', 1)">&#8594;</button>
+            </div>
+        </div>
     </div>
-    
+
     <script src="album.js"></script>
 </body>
 </html>
