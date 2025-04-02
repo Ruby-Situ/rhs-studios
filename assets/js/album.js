@@ -1,29 +1,33 @@
-const albums = document.querySelectorAll(".album");
+// Get all the albums
+const albums = document.querySelectorAll('.album');
 
-albums.forEach(album =>
-{
+// Loop through each album and add event listeners for navigation
+albums.forEach(album => {
     const leftButton = album.querySelector('.album-nav.left');
     const rightButton = album.querySelector('.album-nav.right');
     const images = album.querySelectorAll('.album-images img');
+    
+    let currentIndex = 0;  // Track the current image index
 
-
-    function showImage(index)
-    {
-        images.forEach((img, i) =>{
-            img.style.display = (i === index)? 'block':'none';
+    // Function to show the image based on index
+    function showImage(index) {
+        images.forEach((img, i) => {
+            img.style.display = (i === index) ? 'block' : 'none';
         });
     }
 
+    // Show the initial image
     showImage(currentIndex);
 
-    leftButton.addEventListener('click', ()=>
-    {
-        currentIndex = (currentIndex === 0)? images.length - 1 : currentIndex - 1;
+    // Left Button (Previous Image)
+    leftButton.addEventListener('click', () => {
+        currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
+        showImage(currentIndex);
     });
 
-    rightButtonButton.addEventListener('click', ()=>
-        {
-            currentIndex = (currentIndex === 0)? images.length + 1 : currentIndex + 1;
+    // Right Button (Next Image)
+    rightButton.addEventListener('click', () => {
+        currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
+        showImage(currentIndex);
     });
-
 });
