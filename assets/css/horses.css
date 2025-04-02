@@ -28,7 +28,7 @@ body {
 .image-button {
     display: inline-block;
     width: 20%;                /* Set the width of each button to 20% of the container width */
-    height: 100px;             /* Set fixed height for the button */
+    height: 50px;             /* Set fixed height for the button */
     border: none;              /* Remove button border */
     background: none;          /* Remove background */
     cursor: pointer;          /* Make the button clickable */
