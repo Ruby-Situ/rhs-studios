@@ -1,36 +1,22 @@
-// Get all the albums
-const albums = document.querySelectorAll('.album');
+// Function to change the active image within an album
+function changeImage(button, direction) {
+    const albumContainer = button.closest('.album-container'); // Find the closest album container
+    const images = albumContainer.querySelectorAll('.album-images img'); // Get all images in this album
+    let currentIndex = Array.from(images).findIndex(img => img.classList.contains('active')); // Get the current image index
 
-// Loop through each album and add event listeners for navigation
-albums.forEach(album => {
-    const leftButton = album.querySelector('.album-nav.left');
-    const rightButton = album.querySelector('.album-nav.right');
-    const images = album.querySelectorAll('.album-images img');
-    
-    let currentIndex = 0;  // Track the current image index
+    // Remove the active class from the current image
+    images[currentIndex].classList.remove('active');
 
-    // Function to show the image based on index
-    function showImage(index) {
-        images.forEach((img, i) => {
-            img.classList.remove('active');  // Hide all images
-            if (i === index) {
-                img.classList.add('active');  // Show the current image
-            }
-        });
+    // Update the index for the next image
+    currentIndex = (currentIndex + direction + images.length) % images.length; // Ensure it wraps around (circular navigation)
+
+    // Add the active class to the next image
+    images[currentIndex].classList.add('active');
+}
+
+// Initialization for each album (show the first image)
+document.querySelectorAll('.album-images img').forEach((img, index) => {
+    if (index === 0) {
+        img.classList.add('active');
     }
-
-    // Show the initial image
-    showImage(currentIndex);
-
-    // Left Button (Previous Image)
-    leftButton.addEventListener('click', () => {
-        currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
-        showImage(currentIndex);
-    });
-
-    // Right Button (Next Image)
-    rightButton.addEventListener('click', () => {
-        currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
-        showImage(currentIndex);
-    });
 });

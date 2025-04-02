@@ -9,28 +9,28 @@
 <body>
     <button onclick="window.location.href='Horses.html';">Back</button>
     
-    <div class="album-grid">
+    <div class="album-container">
         <!-- First Album -->
+        <div class="album-nav left" onclick="changeImage(this, -1)">&lt;</div> <!-- Left button for navigation -->
         <div class="album">
-            <div class="album-nav left">&lt;</div>
             <div class="album-images">
                 <img src="assets/images/Trad.jpg" alt="Album 1 Image 1" class="active">
                 <img src="assets/images/classic.jpg" alt="Album 1 Image 2">
                 <img src="assets/images/micro.jpg" alt="Album 1 Image 3">
             </div>
-            <div class="album-nav right">&gt;</div>
+            <div class="album-nav right" onclick="changeImage(this, 1)">&gt;</div> <!-- Right button for navigation -->
+        </div>
+        <!-- First Album -->
+        <div class="album-nav left" onclick="changeImage(this, -1)">&lt;</div> <!-- Left button for navigation -->
+        <div class="album">
+            <div class="album-images">
+                <img src="assets/images/Trad.jpg" alt="Album 1 Image 1" class="active">
+                <img src="assets/images/classic.jpg" alt="Album 1 Image 2">
+                <img src="assets/images/micro.jpg" alt="Album 1 Image 3">
+            </div>
+            <div class="album-nav right" onclick="changeImage(this, 1)">&gt;</div> <!-- Right button for navigation -->
         </div>
 
-        <!-- Second Album -->
-        <div class="album">
-            <div class="album-nav left">&lt;</div>
-            <div class="album-images">
-                <img src="assets/images/Trad.jpg" alt="Album 2 Image 1" class="active">
-                <img src="assets/images/classic.jpg" alt="Album 2 Image 2">
-                <img src="assets/images/micro.jpg" alt="Album 2 Image 3">
-            </div>
-            <div class="album-nav right">&gt;</div>
-        </div>
     </div>
     
     <script src="album.js"></script>
