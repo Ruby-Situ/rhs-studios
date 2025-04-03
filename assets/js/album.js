@@ -1,4 +1,4 @@
-// Define albums with images
+// Define albums with image paths
 const albums = {
     album1: ['assets/images/Trad.jpg', 'assets/images/classic.jpg'],
     album2: ['assets/images/Trad.jpg', 'assets/images/classic.jpg']
@@ -6,8 +6,8 @@ const albums = {
 
 // Track the current image index for each album
 const albumIndexes = {
-    album1: 0,
-    album2: 0
+    album1: 0,  // Start with the first image in album1
+    album2: 0   // Start with the first image in album2
 };
 
 // Function to change image in the album
@@ -29,16 +29,16 @@ function navigate(album, direction) {
     albumIndexes[album] = currentIndex;
     console.log(`Navigating to image: ${albumArray[currentIndex]}`);  // Debugging log
 
-    // Use `album.replace()` to get the correct image element for the album
+    // Get the image element dynamically using album
     const imageElement = document.getElementById(`image${album.replace('album', '')}`);
     imageElement.src = albumArray[currentIndex];  // Dynamically change the src
 }
 
 // Initialize albums when the page loads
 document.addEventListener('DOMContentLoaded', function() {
-    // Set initial images
+    // Set initial images (first image from each album)
     for (let album in albums) {
         const albumArray = albums[album];
-        document.getElementById(`image${album.replace('album', '')}`).src = `${album}/${albumArray[0]}`;
+        document.getElementById(`image${album.replace('album', '')}`).src = albumArray[0]; // Set the first image
     }
 });
