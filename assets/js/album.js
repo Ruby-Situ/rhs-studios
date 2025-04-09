@@ -1,21 +1,35 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const albums = document.querySelectorAll(".album");
+    console.log("JavaScript Loaded");
   
-    albums.forEach(album => {
+    const albums = document.querySelectorAll(".album");
+    console.log(`Found ${albums.length} albums`);
+  
+    albums.forEach((album, albumIndex) => {
       const images = [
         "assets/images/shet.jpg",
-        "assets/images/trad.jpg",
-        "assets/images/pic03.jpg"
+        "assets/images/micro.jpg",
+        "assets/images/Trad.jpg"
       ];
       let index = 0;
       const img = album.querySelector(".carousel-image");
   
-      album.querySelector(".next").addEventListener("click", () => {
+      console.log(`Album ${albumIndex + 1} loaded`);
+  
+      const nextButton = album.querySelector(".next");
+      const prevButton = album.querySelector(".prev");
+  
+      // Check if the buttons are found
+      console.log("Next Button: ", nextButton);
+      console.log("Prev Button: ", prevButton);
+  
+      nextButton.addEventListener("click", () => {
+        console.log("Next button clicked");
         index = (index + 1) % images.length;
         img.src = images[index];
       });
   
-      album.querySelector(".prev").addEventListener("click", () => {
+      prevButton.addEventListener("click", () => {
+        console.log("Prev button clicked");
         index = (index - 1 + images.length) % images.length;
         img.src = images[index];
       });
