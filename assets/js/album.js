@@ -6,39 +6,39 @@ const albums = {
 
 // Track the current image index for each album
 const albumIndexes = {
-    album1: 0,  // Start with the first image in album1
-    album2: 0   // Start with the first image in album2
+    album1: 0,
+    album2: 0
 };
 
 // Function to change image in the album
 function navigate(album, direction) {
-    const albumArray = albums[album]; // Get the array of images for the specified album
-    let currentIndex = albumIndexes[album]; // Get the current index of the album
+    const albumArray = albums[album];
+    let currentIndex = albumIndexes[album];
 
-    // Update the index based on the direction (next or previous)
+    // Update index
     currentIndex += direction;
 
-    // Loop around the index if we go out of bounds
+    // Wrap around
     if (currentIndex < 0) {
-        currentIndex = albumArray.length - 1; // Go to the last image if going backward
+        currentIndex = albumArray.length - 1;
     } else if (currentIndex >= albumArray.length) {
-        currentIndex = 0; // Go back to the first image if going forward past the last image
+        currentIndex = 0;
     }
 
-    // Update the image source and the current index
     albumIndexes[album] = currentIndex;
-    console.log(`Navigating to image: ${albumArray[currentIndex]}`);  // Debugging log
 
-    // Get the image element dynamically using album
+    // Dynamically update the image source
     const imageElement = document.getElementById(`image${album.replace('album', '')}`);
-    imageElement.src = albumArray[currentIndex];  // Dynamically change the src
+    imageElement.src = albumArray[currentIndex];
 }
 
-// Initialize albums when the page loads
+// Initialize images on page load
 document.addEventListener('DOMContentLoaded', function() {
-    // Set initial images (first image from each album)
     for (let album in albums) {
         const albumArray = albums[album];
-        document.getElementById(`image${album.replace('album', '')}`).src = albumArray[0]; // Set the first image
+        const imageElement = document.getElementById(`image${album.replace('album', '')}`);
+        if (imageElement) {
+            imageElement.src = albumArray[0];
+        }
     }
 });
