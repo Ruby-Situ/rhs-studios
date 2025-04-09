@@ -11,7 +11,8 @@ const albumIndexes = {
 };
 
 // Function to change image in the album
-function navigate(album, direction) {
+window.navigate = function(album, direction) {
+    console.log(`Button clicked: ${album}, direction: ${direction}`);
     const albumArray = albums[album];
     let currentIndex = albumIndexes[album];
 
