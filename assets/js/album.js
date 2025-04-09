@@ -1,7 +1,7 @@
 // Define albums with image paths
 const albums = {
-    album1: ['assets/images/Trad.jpg', 'assets/images/classic.jpg'],
-    album2: ['assets/images/Trad.jpg', 'assets/images/classic.jpg']
+    album1: ['assets/images/Trad.jpg', 'assets/images/shet.jpg'],
+    album2: ['assets/images/Trad.jpg', 'assets/images/shet.jpg']
 };
 
 // Track the current image index for each album
