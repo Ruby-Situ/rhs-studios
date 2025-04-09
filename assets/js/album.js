@@ -1,45 +1,24 @@
-// Define albums with image paths
-const albums = {
-    album1: ['assets/images/Trad.jpg', 'assets/images/shet.jpg'],
-    album2: ['assets/images/Trad.jpg', 'assets/images/shet.jpg']
-};
-
-// Track the current image index for each album
-const albumIndexes = {
-    album1: 0,
-    album2: 0
-};
-
-// Function to change image in the album
-window.navigate = function(album, direction) {
-    console.log(`Button clicked: ${album}, direction: ${direction}`);
-    const albumArray = albums[album];
-    let currentIndex = albumIndexes[album];
-
-    // Update index
-    currentIndex += direction;
-
-    // Wrap around
-    if (currentIndex < 0) {
-        currentIndex = albumArray.length - 1;
-    } else if (currentIndex >= albumArray.length) {
-        currentIndex = 0;
-    }
-
-    albumIndexes[album] = currentIndex;
-
-    // Dynamically update the image source
-    const imageElement = document.getElementById(`image${album.replace('album', '')}`);
-    imageElement.src = albumArray[currentIndex];
-}
-
-// Initialize images on page load
-document.addEventListener('DOMContentLoaded', function() {
-    for (let album in albums) {
-        const albumArray = albums[album];
-        const imageElement = document.getElementById(`image${album.replace('album', '')}`);
-        if (imageElement) {
-            imageElement.src = albumArray[0];
-        }
-    }
-});
+document.addEventListener("DOMContentLoaded", () => {
+    const albums = document.querySelectorAll(".album");
+  
+    albums.forEach(album => {
+      const images = [
+        "assets/images/shet.jpg",
+        "assets/images/trad.jpg",
+        "assets/images/pic03.jpg"
+      ];
+      let index = 0;
+      const img = album.querySelector(".carousel-image");
+  
+      album.querySelector(".next").addEventListener("click", () => {
+        index = (index + 1) % images.length;
+        img.src = images[index];
+      });
+  
+      album.querySelector(".prev").addEventListener("click", () => {
+        index = (index - 1 + images.length) % images.length;
+        img.src = images[index];
+      });
+    });
+  });
+  
