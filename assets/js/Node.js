@@ -1,44 +1,39 @@
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
+const express = require("express");
+const path = require("path");
+const fs = require("fs");
+
 const app = express();
-const port = 3000;
+const PORT = 3000;
 
-// Serve static files (images, css, js, etc.)
-app.use(express.static('public'));
+app.use(express.static("public")); // serve HTML, JS, CSS, images
 
-// Function to recursively get all image files in a directory
-const getImagesFromDirectory = (dirPath) => {
-  let images = [];
-  const files = fs.readdirSync(dirPath);
-  files.forEach((file) => {
-    const fullPath = path.join(dirPath, file);
-    const stats = fs.statSync(fullPath);
-    
-    if (stats.isDirectory()) {
-      // If it's a directory, recurse into it
-      images = images.concat(getImagesFromDirectory(fullPath));
-    } else if (/\.(jpg|jpeg|png|gif)$/i.test(file)) {
-      // If it's an image file, add it to the list
-      images.push(fullPath);
-    }
+app.get("/images", (req, res) => {
+  const baseDir = path.join(__dirname, "public/assets/images");
+
+  fs.readdir(baseDir, (err, folders) => {
+    if (err) return res.status(500).json({ error: "Failed to read folders" });
+
+    const albums = {};
+
+    folders.forEach((folder) => {
+      const folderPath = path.join(baseDir, folder);
+      const isDir = fs.statSync(folderPath).isDirectory();
+
+      if (isDir) {
+        const files = fs.readdirSync(folderPath).filter((file) =>
+          /\.(jpe?g|png|gif)$/i.test(file)
+        );
+
+        albums[folder] = files.map(
+          (file) => `/assets/images/${folder}/${file}`
+        );
+      }
+    });
+
+    res.json(albums);
   });
-  return images;
-};
-
-// Route to get images
-app.get('/images', (req, res) => {
-  const imagesFolderPath = path.join(__dirname, 'public', 'assets', 'images');
-  const imagePaths = getImagesFromDirectory(imagesFolderPath);
-
-  // Convert file paths to relative URLs
-  const imageUrls = imagePaths.map((filePath) => {
-    return filePath.replace(path.join(__dirname, 'public'), '');
-  });
-
-  res.json(imageUrls);
 });
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
