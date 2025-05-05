@@ -7,7 +7,7 @@ const PORT = 3000;
 
 app.use(express.static("public")); // serve HTML, JS, CSS, images
 
-app.get("/images", (req, res) => {
+app.get("/api/images", (req, res) => {
   const baseDir = path.join(__dirname, "public/assets/images");
 
   fs.readdir(baseDir, (err, folders) => {
