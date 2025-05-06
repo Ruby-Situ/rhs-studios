@@ -1,13 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dynamic Albums</title>
-  <link rel="stylesheet" href="HorsePortfolio.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horse Portfolio Gallery</title>
+    <link rel="stylesheet" href="assets/css/HorsePortfolios.css">
 </head>
 <body>
-  <!-- Albums will be inserted here by JS -->
-  <script src="assets/js/album.js"></script>
+    <header>
+        <h1>Horse Portfolio Gallery</h1>
+    </header>
+
+    <section id="album-gallery">
+        <!-- Dynamic content will be inserted here -->
+    </section>
+
+    <footer>
+        <p>Horse Portfolio Website</p>
+    </footer>
+
+    <script src="assets/js/album.js"></script>
+    <script>
+      // Fetch the albums and display them dynamically
+      fetch('/api/albums')
+        .then(response => response.json())
+        .then(albums => {
+          const gallerySection = document.getElementById('album-gallery');
+          
+          albums.forEach(album => {
+            const albumDiv = document.createElement('div');
+            albumDiv.classList.add('album');
+            
+            const albumTitle = document.createElement('h2');
+            albumTitle.textContent = album.albumName;
+            albumDiv.appendChild(albumTitle);
+            
+            const gallery = document.createElement('div');
+            gallery.classList.add('image-gallery');
+            album.images.forEach((image, index) => {
+              const img = document.createElement('img');
+              img.src = image;
+              img.alt = `Image ${index + 1}`;
+              img.style.display = 'none'; // Hide initially
+              gallery.appendChild(img);
+            });
+
+            const prevButton = document.createElement('button');
+            prevButton.textContent = '←';
+            prevButton.classList.add('prev');
+            const nextButton = document.createElement('button');
+            nextButton.textContent = '→';
+            nextButton.classList.add('next');
+            
+            let currentIndex = 0;
+            const imgs = gallery.querySelectorAll('img');
+            imgs[currentIndex].style.display = 'block'; // Show the first image
+
+            prevButton.addEventListener('click', () => {
+              imgs[currentIndex].style.display = 'none';
+              currentIndex = (currentIndex - 1 + imgs.length) % imgs.length;
+              imgs[currentIndex].style.display = 'block';
+            });
+
+            nextButton.addEventListener('click', () => {
+              imgs[currentIndex].style.display = 'none';
+              currentIndex = (currentIndex + 1) % imgs.length;
+              imgs[currentIndex].style.display = 'block';
+            });
+
+            albumDiv.appendChild(prevButton);
+            albumDiv.appendChild(gallery);
+            albumDiv.appendChild(nextButton);
+            gallerySection.appendChild(albumDiv);
+          });
+        })
+        .catch(error => console.error('Error loading albums:', error));
+    </script>
 </body>
 </html>

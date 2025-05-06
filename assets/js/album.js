@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("/images")
+  fetch("assets/images")
     .then((res) => res.json())
     .then((albumsData) => {
       const container = document.createElement("div");
