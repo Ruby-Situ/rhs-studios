@@ -8,8 +8,13 @@ const PORT = 3000;
 // Serve static files like images, CSS, JS, etc.
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-// Serve the index.html file for the root route
+// Serve the index.html file for the root route (homepage)
 app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Serve Trad.html at the /trad route
+app.get('/trad', (req, res) => {
   res.sendFile(path.join(__dirname, 'Trad.html'));
 });
 
