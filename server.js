@@ -20,7 +20,7 @@ app.get('/trad', (req, res) => {
 
 // API endpoint to get album names
 app.get('/api/albums', (req, res) => {
-  const albumsDir = path.join(__dirname, 'assets', 'images', 'albumFolders');
+  const albumsDir = path.join(__dirname, 'assets', 'images');
   fs.readdir(albumsDir, (err, files) => {
     if (err) {
       return res.status(500).json({ error: 'Unable to read album folders' });
@@ -33,7 +33,7 @@ app.get('/api/albums', (req, res) => {
 // API endpoint to get images in an album
 app.get('/api/album/:albumName', (req, res) => {
   const albumName = req.params.albumName;
-  const albumDir = path.join(__dirname, 'assets', 'images', 'albumFolders', albumName);
+  const albumDir = path.join(__dirname, 'assets', 'images', albumName);
 
   fs.readdir(albumDir, (err, files) => {
     if (err) {
@@ -41,7 +41,7 @@ app.get('/api/album/:albumName', (req, res) => {
     }
 
     const images = files.filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file)).map(file => {
-      return { filename: file, url: `/assets/images/albumFolders/${albumName}/${file}` };
+      return { filename: file, url: `/assets/images/${albumName}/${file}` };
     });
 
     res.json({ album: albumName, images: images });
