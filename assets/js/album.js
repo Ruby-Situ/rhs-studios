@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch('/api/albums')
         .then(response => response.json())
         .then(albums => {
+            console.log("Albums fetched:", albums); // Debugging output
             const albumButtonsDiv = document.getElementById('album-buttons');
             albums.forEach(album => {
                 const albumButton = document.createElement('button');
@@ -11,7 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 albumButtonsDiv.appendChild(albumButton);
             });
         })
-        .catch(error => console.error('Error fetching albums:', error));
+        .catch(error => {
+            console.error('Error fetching albums:', error);
+        });
 });
 
 let currentAlbum = '';
@@ -32,12 +35,20 @@ function loadAlbum(album) {
     fetch(`/api/album/${album}`)
         .then(response => response.json())
         .then(data => {
+            console.log("Images for album fetched:", data.images); // Debugging output
             albumImages = data.images; // Store images for this album
             albumNameElement.textContent = album; // Display album name
-            showImage(); // Show the first image
-            imageGallery.style.display = 'block'; // Show the gallery
+            if (albumImages.length > 0) {
+                showImage(); // Show the first image
+                imageGallery.style.display = 'block'; // Show the gallery
+            } else {
+                imageContainer.innerHTML = '<p>No images available in this album.</p>';
+                imageGallery.style.display = 'block'; // Show message
+            }
         })
-        .catch(error => console.error('Error fetching images:', error));
+        .catch(error => {
+            console.error('Error fetching images:', error);
+        });
 }
 
 function showImage() {
@@ -45,7 +56,7 @@ function showImage() {
     const image = albumImages[currentImageIndex];
     if (image) {
         const imgElement = document.createElement('img');
-        imgElement.src = image.url;
+        imgElement.src = image.url;  // Use the URL from the JSON response
         imgElement.alt = image.filename;
         imgElement.style.maxWidth = '100%';
         imgElement.style.height = 'auto';

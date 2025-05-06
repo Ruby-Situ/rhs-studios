@@ -1,53 +1,49 @@
 const express = require('express');
-const fs = require('fs');
 const path = require('path');
+const fs = require('fs');
+
 const app = express();
 const PORT = 3000;
 
-// Serve public (HTML, JS, CSS)
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve static assets (images, CSS, JS files)
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-// Serve static images from assets
-app.use('/assets/images', express.static(path.join(__dirname, 'assets/images')));
+// Root route: Serve the index.html file
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
 
-// Path to image albums
-const IMAGES_PATH = path.join(__dirname, 'assets/images');
-
-// API: List albums
+// Albums API endpoint
 app.get('/api/albums', (req, res) => {
-    fs.readdir(IMAGES_PATH, { withFileTypes: true }, (err, files) => {
-        if (err) return res.status(500).json({ error: 'Unable to read albums' });
-
-        const albums = files
-            .filter(f => f.isDirectory())
-            .map(dir => dir.name);
-
-        res.json(albums);
-    });
+  const albumsDir = path.join(__dirname, 'assets', 'images', 'albumFolders');
+  fs.readdir(albumsDir, (err, files) => {
+    if (err) {
+      return res.status(500).json({ error: 'Unable to read album folders' });
+    }
+    const albums = files.filter(file => fs.statSync(path.join(albumsDir, file)).isDirectory());
+    res.json(albums);
+  });
 });
 
-// API: List images in a given album
+// API endpoint for images in an album
 app.get('/api/album/:albumName', (req, res) => {
-    const album = req.params.albumName;
-    const albumPath = path.join(IMAGES_PATH, album);
+  const albumName = req.params.albumName;
+  const albumDir = path.join(__dirname, 'assets', 'images', 'albumFolders', albumName);
 
-    fs.readdir(albumPath, (err, files) => {
-        if (err) return res.status(404).json({ error: 'Album not found' });
+  fs.readdir(albumDir, (err, files) => {
+    if (err) {
+      return res.status(500).json({ error: 'Unable to read album images' });
+    }
 
-        const images = files
-            .filter(file => /\.(jpg|jpeg|png|gif|webp)$/i.test(file))
-            .map(file => ({
-                filename: file,
-                url: `/assets/images/${album}/${file}`
-            }));
-
-        res.json({
-            album: album,
-            images: images
-        });
+    const images = files.filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file)).map(file => {
+      return { filename: file, url: `/assets/images/albumFolders/${albumName}/${file}` };
     });
+
+    res.json({ album: albumName, images: images });
+  });
 });
 
+// Start the server
 app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
