@@ -5,15 +5,15 @@ const fs = require('fs');
 const app = express();
 const PORT = 3000;
 
-// Serve static assets (images, CSS, JS files)
+// Serve static files like images, CSS, JS, etc.
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-// Root route: Serve the index.html file
+// Serve the index.html file for the root route
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'Trad.html'));
 });
 
-// Albums API endpoint
+// API endpoint to get album names
 app.get('/api/albums', (req, res) => {
   const albumsDir = path.join(__dirname, 'assets', 'images', 'albumFolders');
   fs.readdir(albumsDir, (err, files) => {
@@ -25,7 +25,7 @@ app.get('/api/albums', (req, res) => {
   });
 });
 
-// API endpoint for images in an album
+// API endpoint to get images in an album
 app.get('/api/album/:albumName', (req, res) => {
   const albumName = req.params.albumName;
   const albumDir = path.join(__dirname, 'assets', 'images', 'albumFolders', albumName);
