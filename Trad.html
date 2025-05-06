@@ -1,15 +1,32 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dynamic Image Gallery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Album Gallery</title>
     <link rel="stylesheet" href="assets/css/HorsePortfolio.css">
 </head>
 <body>
-    <h1>Albums</h1>
-    <div id="albums"></div>
-    <hr>
-    <div id="gallery"></div>
+
+    <h1>Photo Gallery</h1>
+
+    <!-- Display album buttons -->
+    <div id="album-buttons">
+        <h2>Albums</h2>
+        <!-- Album buttons will be injected here by script.js -->
+    </div>
+
+    <!-- Gallery to display images when album is clicked -->
+    <div id="image-gallery" style="display: none;">
+        <h2>Album: <span id="album-name"></span></h2>
+        <div id="image-container">
+            <!-- Image will be displayed here -->
+        </div>
+
+        <button id="prev-button" onclick="changeImage(-1)">Previous</button>
+        <button id="next-button" onclick="changeImage(1)">Next</button>
+    </div>
 
     <script src="assets/js/album.js"></script>
 </body>
