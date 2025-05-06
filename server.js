@@ -1,48 +1,53 @@
-const express = require("express");
-const path = require("path");
-const fs = require("fs").promises;
-
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
 const app = express();
 const PORT = 3000;
 
-// Serve static files (images, CSS, JS) from the "assets" folder
-app.use("/assets", express.static(path.join(__dirname, "assets"))); 
+// Serve public (HTML, JS, CSS)
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Endpoint to get album data (folders and images)
-app.get("/api/albums", async (req, res) => {
-  const imagesDir = path.join(__dirname, "assets/images");
+// Serve static images from assets
+app.use('/assets/images', express.static(path.join(__dirname, 'assets/images')));
 
-  try {
-    // Read all the folders in the images directory
-    const folders = await fs.readdir(imagesDir);
-    const albums = {};
+// Path to image albums
+const IMAGES_PATH = path.join(__dirname, 'assets/images');
 
-    // Loop through each folder
-    for (const folder of folders) {
-      const folderPath = path.join(imagesDir, folder);
-      const stats = await fs.stat(folderPath);
+// API: List albums
+app.get('/api/albums', (req, res) => {
+    fs.readdir(IMAGES_PATH, { withFileTypes: true }, (err, files) => {
+        if (err) return res.status(500).json({ error: 'Unable to read albums' });
 
-      // Check if it's a directory
-      if (stats.isDirectory()) {
-        const files = await fs.readdir(folderPath);
+        const albums = files
+            .filter(f => f.isDirectory())
+            .map(dir => dir.name);
 
-        // Filter only image files (JPEG, PNG, GIF)
-        const imageFiles = files.filter(file =>
-          /\.(jpe?g|png|gif)$/i.test(file)
-        );
-
-        // Create album entry for the folder
-        albums[folder] = imageFiles.map(file => `/assets/images/${folder}/${file}`);
-      }
-    }
-
-    res.json(albums); // Send album data (folders and images) to the client
-  } catch (error) {
-    res.status(500).json({ error: "Failed to read image folders" });
-  }
+        res.json(albums);
+    });
 });
 
-// Start the server on port 3000
+// API: List images in a given album
+app.get('/api/album/:albumName', (req, res) => {
+    const album = req.params.albumName;
+    const albumPath = path.join(IMAGES_PATH, album);
+
+    fs.readdir(albumPath, (err, files) => {
+        if (err) return res.status(404).json({ error: 'Album not found' });
+
+        const images = files
+            .filter(file => /\.(jpg|jpeg|png|gif|webp)$/i.test(file))
+            .map(file => ({
+                filename: file,
+                url: `/assets/images/${album}/${file}`
+            }));
+
+        res.json({
+            album: album,
+            images: images
+        });
+    });
+});
+
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running at http://localhost:${PORT}`);
 });
