@@ -1,163 +1,148 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const galleryContainer = document.getElementById('gallery');
-  const lightbox = createLightbox();
+  const gallery = document.getElementById('gallery');
+  if (!gallery) {
+    console.error('Gallery container not found');
+    return;
+  }
 
-  // Fetch and show albums on load
-  fetch('/api/albums')
-    .then(res => res.json())
+  const category = gallery.dataset.category || '';
+  if (!category) {
+    console.error('No category specified in data-category attribute');
+    return;
+  }
+
+  // Fetch albums for the category
+  fetch(`/api/albums?category=${encodeURIComponent(category)}`)
+    .then(response => {
+      if (!response.ok) throw new Error('Failed to fetch albums');
+      return response.json();
+    })
     .then(data => {
       renderAlbums(data.albums);
     })
-    .catch(console.error);
+    .catch(err => {
+      gallery.innerHTML = `<p>Error loading albums: ${err.message}</p>`;
+      console.error(err);
+    });
 
-  // Render albums list with covers
+  // Function to render albums into the gallery
   function renderAlbums(albums) {
-    galleryContainer.innerHTML = '';
-    albums.forEach(album => {
-      const albumDiv = document.createElement('div');
-      albumDiv.className = 'album';
+    if (!albums.length) {
+      gallery.innerHTML = '<p>No albums found.</p>';
+      return;
+    }
 
-      const img = document.createElement('img');
-      img.src = album.cover || '';
-      img.alt = album.name;
-      img.loading = 'lazy';
+    gallery.innerHTML = albums.map(album => `
+      <div class="album" tabindex="0" role="button" aria-label="Open album ${album.name}">
+        <img src="${album.cover}" alt="Cover image of ${album.name}" />
+        <div class="album-title">${album.name}</div>
+      </div>
+    `).join('');
 
-      const title = document.createElement('div');
-      title.className = 'album-title';
-      title.textContent = album.name;
-
-      albumDiv.appendChild(img);
-      albumDiv.appendChild(title);
-      galleryContainer.appendChild(albumDiv);
-
-      albumDiv.addEventListener('click', () => {
-        openAlbum(album.name);
-      });
-    });
-  }
-
-  // Fetch images inside an album and open lightbox
-  function openAlbum(albumName) {
-    fetch(`/api/albums?album=${encodeURIComponent(albumName)}`)
-      .then(res => res.json())
-      .then(data => {
-        if (!data.images || data.images.length === 0) {
-          alert('No images in this album.');
-          return;
+    // Add click handlers to albums
+    const albumElements = gallery.querySelectorAll('.album');
+    albumElements.forEach((albumEl, index) => {
+      albumEl.addEventListener('click', () => openLightbox(index));
+      albumEl.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLightbox(index);
         }
-        lightbox.open(data.images);
-      })
-      .catch(err => {
-        console.error(err);
-        alert('Failed to load album images.');
       });
-  }
-
-  // Simple lightbox gallery with next/prev
-  function createLightbox() {
-    let images = [];
-    let currentIndex = 0;
-
-    // Create overlay elements
-    const overlay = document.createElement('div');
-    overlay.id = 'lightbox-overlay';
-    overlay.style.cssText = `
-      position: fixed; top:0; left:0; width:100vw; height:100vh;
-      background: rgba(0,0,0,0.9);
-      display: flex; align-items: center; justify-content: center;
-      visibility: hidden; opacity: 0; transition: opacity 0.3s;
-      z-index: 9999;
-    `;
-
-    const img = document.createElement('img');
-    img.style.maxWidth = '90%';
-    img.style.maxHeight = '90%';
-    img.alt = 'Gallery Image';
-
-    const prevBtn = document.createElement('button');
-    prevBtn.textContent = '<';
-    prevBtn.style.cssText = buttonStyle() + 'left: 20px;';
-
-    const nextBtn = document.createElement('button');
-    nextBtn.textContent = '>';
-    nextBtn.style.cssText = buttonStyle() + 'right: 20px;';
-
-    const closeBtn = document.createElement('button');
-    closeBtn.textContent = '×';
-    closeBtn.style.cssText = buttonStyle() + 'top: 20px; right: 20px; font-size: 30px;';
-
-    overlay.appendChild(img);
-    overlay.appendChild(prevBtn);
-    overlay.appendChild(nextBtn);
-    overlay.appendChild(closeBtn);
-    document.body.appendChild(overlay);
-
-    // Helpers
-    function buttonStyle() {
-      return `
-        position: absolute;
-        background: rgba(255,255,255,0.3);
-        border: none;
-        color: white;
-        font-size: 40px;
-        padding: 10px 15px;
-        cursor: pointer;
-        user-select: none;
-        border-radius: 5px;
-        transition: background 0.3s;
-      `;
-    }
-
-    // Show image at currentIndex
-    function showImage() {
-      img.src = images[currentIndex];
-    }
-
-    function open(imgs) {
-      images = imgs;
-      currentIndex = 0;
-      showImage();
-      overlay.style.visibility = 'visible';
-      overlay.style.opacity = '1';
-    }
-
-    function close() {
-      overlay.style.opacity = '0';
-      setTimeout(() => {
-        overlay.style.visibility = 'hidden';
-        images = [];
-      }, 300);
-    }
-
-    function prev() {
-      currentIndex = (currentIndex - 1 + images.length) % images.length;
-      showImage();
-    }
-
-    function next() {
-      currentIndex = (currentIndex + 1) % images.length;
-      showImage();
-    }
-
-    // Events
-    prevBtn.addEventListener('click', prev);
-    nextBtn.addEventListener('click', next);
-    closeBtn.addEventListener('click', close);
-
-    // Close lightbox on overlay click (except when clicking buttons or image)
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) close();
     });
 
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-      if (overlay.style.visibility === 'visible') {
-        if (e.key === 'ArrowLeft') prev();
-        else if (e.key === 'ArrowRight') next();
-        else if (e.key === 'Escape') close();
+    // Store albums in closure for lightbox navigation
+    let currentAlbumIndex = 0;
+
+    // Lightbox overlay element creation
+    let lightboxOverlay = null;
+
+    // Open lightbox function
+    function openLightbox(albumIndex) {
+      currentAlbumIndex = albumIndex;
+      const album = albums[albumIndex];
+
+      // Fetch images inside the album folder
+      fetch(`/api/albums?category=${encodeURIComponent(category)}&album=${encodeURIComponent(album.name)}`)
+        .then(res => {
+          if (!res.ok) throw new Error('Failed to fetch album images');
+          return res.json();
+        })
+        .then(albumData => {
+          showLightbox(albumData.images);
+        })
+        .catch(err => {
+          alert('Error loading album images: ' + err.message);
+          console.error(err);
+        });
+    }
+
+    // Show lightbox with images array
+    function showLightbox(images) {
+      if (!images.length) {
+        alert('No images in this album.');
+        return;
       }
-    });
 
-    return { open, close };
+      let currentImageIndex = 0;
+
+      if (!lightboxOverlay) {
+        lightboxOverlay = document.createElement('div');
+        lightboxOverlay.id = 'lightbox-overlay';
+
+        lightboxOverlay.innerHTML = `
+          <button id="lightbox-prev" aria-label="Previous image">&#10094;</button>
+          <img id="lightbox-img" src="" alt="" />
+          <button id="lightbox-next" aria-label="Next image">&#10095;</button>
+          <button id="lightbox-close" aria-label="Close lightbox">&times;</button>
+        `;
+
+        document.body.appendChild(lightboxOverlay);
+
+        lightboxOverlay.querySelector('#lightbox-prev').addEventListener('click', showPrev);
+        lightboxOverlay.querySelector('#lightbox-next').addEventListener('click', showNext);
+        lightboxOverlay.querySelector('#lightbox-close').addEventListener('click', closeLightbox);
+
+        // Close on click outside image
+        lightboxOverlay.addEventListener('click', (e) => {
+          if (e.target === lightboxOverlay) closeLightbox();
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+          if (!lightboxOverlay || lightboxOverlay.style.visibility !== 'visible') return;
+          if (e.key === 'ArrowLeft') showPrev();
+          else if (e.key === 'ArrowRight') showNext();
+          else if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      const imgEl = lightboxOverlay.querySelector('#lightbox-img');
+
+      function updateImage() {
+        imgEl.src = images[currentImageIndex];
+        imgEl.alt = `Image ${currentImageIndex + 1} of ${images.length}`;
+      }
+
+      function showPrev() {
+        currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+        updateImage();
+      }
+
+      function showNext() {
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        updateImage();
+      }
+
+      function closeLightbox() {
+        lightboxOverlay.style.visibility = 'hidden';
+        lightboxOverlay.style.opacity = '0';
+      }
+
+      // Initialize lightbox
+      updateImage();
+      lightboxOverlay.style.visibility = 'visible';
+      lightboxOverlay.style.opacity = '1';
+    }
   }
 });
