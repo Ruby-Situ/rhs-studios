@@ -11,6 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  // Shared lightbox state
+  let lightboxOverlay = null;
+  let lightboxImages = [];
+  let currentImageIndex = 0;
+
   // Fetch albums for the category
   fetch(`/api/albums?category=${encodeURIComponent(category)}`)
     .then(response => {
@@ -25,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error(err);
     });
 
-  // Function to render albums into the gallery
   function renderAlbums(albums) {
     if (!albums.length) {
       gallery.innerHTML = '<p>No albums found.</p>';
@@ -39,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `).join('');
 
-    // Add click handlers to albums
     const albumElements = gallery.querySelectorAll('.album');
     albumElements.forEach((albumEl, index) => {
       albumEl.addEventListener('click', () => openLightbox(index));
@@ -51,18 +54,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Store albums in closure for lightbox navigation
-    let currentAlbumIndex = 0;
-
-    // Lightbox overlay element creation
-    let lightboxOverlay = null;
-
-    // Open lightbox function
     function openLightbox(albumIndex) {
-      currentAlbumIndex = albumIndex;
       const album = albums[albumIndex];
 
-      // Fetch images inside the album folder
       fetch(`/api/albums?category=${encodeURIComponent(category)}&album=${encodeURIComponent(album.name)}`)
         .then(res => {
           if (!res.ok) throw new Error('Failed to fetch album images');
@@ -77,14 +71,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Show lightbox with images array
     function showLightbox(images) {
       if (!images.length) {
         alert('No images in this album.');
         return;
       }
 
-      let currentImageIndex = 0;
+      lightboxImages = images;
+      currentImageIndex = 0;
 
       if (!lightboxOverlay) {
         lightboxOverlay = document.createElement('div');
@@ -99,11 +93,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.body.appendChild(lightboxOverlay);
 
+        // Event handlers use shared state
         lightboxOverlay.querySelector('#lightbox-prev').addEventListener('click', showPrev);
         lightboxOverlay.querySelector('#lightbox-next').addEventListener('click', showNext);
         lightboxOverlay.querySelector('#lightbox-close').addEventListener('click', closeLightbox);
 
-        // Close on click outside image
+        // Click outside image closes overlay
         lightboxOverlay.addEventListener('click', (e) => {
           if (e.target === lightboxOverlay) closeLightbox();
         });
@@ -117,32 +112,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
-      const imgEl = lightboxOverlay.querySelector('#lightbox-img');
-
-      function updateImage() {
-        imgEl.src = images[currentImageIndex];
-        imgEl.alt = `Image ${currentImageIndex + 1} of ${images.length}`;
-      }
-
-      function showPrev() {
-        currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-        updateImage();
-      }
-
-      function showNext() {
-        currentImageIndex = (currentImageIndex + 1) % images.length;
-        updateImage();
-      }
-
-      function closeLightbox() {
-        lightboxOverlay.style.visibility = 'hidden';
-        lightboxOverlay.style.opacity = '0';
-      }
-
-      // Initialize lightbox
       updateImage();
       lightboxOverlay.style.visibility = 'visible';
       lightboxOverlay.style.opacity = '1';
+    }
+
+    function updateImage() {
+      const imgEl = lightboxOverlay.querySelector('#lightbox-img');
+      imgEl.src = lightboxImages[currentImageIndex];
+      imgEl.alt = `Image ${currentImageIndex + 1} of ${lightboxImages.length}`;
+    }
+
+    function showPrev() {
+      currentImageIndex = (currentImageIndex - 1 + lightboxImages.length) % lightboxImages.length;
+      updateImage();
+    }
+
+    function showNext() {
+      currentImageIndex = (currentImageIndex + 1) % lightboxImages.length;
+      updateImage();
+    }
+
+    function closeLightbox() {
+      lightboxOverlay.style.visibility = 'hidden';
+      lightboxOverlay.style.opacity = '0';
     }
   }
 });
