@@ -7,6 +7,30 @@
   margin: auto;
 }
 
+#lightboxOverlay {
+  position: fixed;      /* fix position relative to viewport */
+  top: 0;
+  left: 0;
+  width: 100vw;         /* full viewport width */
+  height: 100vh;        /* full viewport height */
+  background: rgba(0, 0, 0, 0.8);  /* dark transparent background */
+  display: none;        /* hide by default */
+  justify-content: center;  /* horizontally center content */
+  align-items: center;      /* vertically center content */
+  z-index: 9999;        /* very high to overlay all other content */
+}
+
+#lightboxOverlay.active {
+  display: flex;        /* show and use flex layout when active */
+}
+
+#lightboxOverlay img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+}
+
+
 .gallery-item {
   background: white;
   border-radius: 8px;
