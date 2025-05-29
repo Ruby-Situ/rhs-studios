@@ -6,6 +6,9 @@ const images = [
 
 
 const gallery = document.getElementById('gallery');
+const lightboxOverlay = document.getElementById('lightboxOverlay');
+const lightboxImage = document.getElementById('lightboxImage');
+const lightboxCaption = document.getElementById('lightboxCaption');
 
 images.forEach(img => {
   const figure = document.createElement('figure');
@@ -21,5 +24,34 @@ images.forEach(img => {
   figure.appendChild(image);
   figure.appendChild(caption);
   gallery.appendChild(figure);
+
+  image.addEventListener('click', () => 
+  {
+    lightboxImage.src = img.src;
+    lightboxImage.alt = img.caption;
+    lightboxCaption.textContent = img.caption;
+    lightboxOverlay.classList.add('active');
+    lightboxOverlay.focus();
+  });
+});
+
+
+
+lightboxOverlay.addEventListener('click', (e) => 
+{
+  if(e.target === lightboxOverlay)
+  {
+    lightboxCaption.classList.remove('active');
+    lightboxImage.src = '';
+    lightboxCaption.textContent = '';
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape' && lightboxOverlay.classList.contains('active')){
+  lightboxOverlay.classList.remove('active');
+  lightboxImage.src = '';
+  lightboxCaption.textContent = '';
+}
 });
 
