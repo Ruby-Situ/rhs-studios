@@ -1,20 +1,29 @@
-
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 15px;
   padding: 20px;
+  max-width: 1200px;
   margin: auto;
 }
 
-.gallery-item:hover img {
-  transform: scale(1.05);
+.gallery-item {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  text-align: center;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .gallery-item figcaption {
   padding: 10px;
-  text-align: center;
+  background: #f0f0f0;
   font-size: 0.9em;
   color: #333;
-  background-color: #f0f0f0;
 }
