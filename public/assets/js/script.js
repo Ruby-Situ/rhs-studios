@@ -91,16 +91,16 @@ document.addEventListener('DOMContentLoaded', () => {
         lightboxOverlay.id = 'lightbox-overlay';
 
         lightboxOverlay.innerHTML = `
-          <button id="lightbox-prev" aria-label="Previous image">&#10094;</button>
-          <img id="lightbox-img" src="" alt="" />
-          <button id="lightbox-next" aria-label="Next image">&#10095;</button>
-          <button id="lightbox-close" aria-label="Close lightbox">&times;</button>
+            <button id="lightbox-back" aria-label="Go back to Horses.html">← Go Back</button>
+            <img id="lightbox-img" src="" alt="" />
+            <button id="lightbox-close" aria-label="Close lightbox">&times;</button>
         `;
 
         document.body.appendChild(lightboxOverlay);
 
-        lightboxOverlay.querySelector('#lightbox-prev').addEventListener('click', showPrev);
-        lightboxOverlay.querySelector('#lightbox-next').addEventListener('click', showNext);
+        lightboxOverlay.querySelector('#lightbox-back').addEventListener('click', () => {
+          window.location.href = 'Horses.html';  // Change this to your desired page
+        });
         lightboxOverlay.querySelector('#lightbox-close').addEventListener('click', closeLightbox);
 
         // Close on click outside image
