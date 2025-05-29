@@ -32,7 +32,6 @@ images.forEach(img => {
     lightboxOverlay.classList.add('active');
     lightboxOverlay.focus();
   });
-    gallery.appendChild(img);
 
 });
 
