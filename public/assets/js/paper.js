@@ -4,7 +4,6 @@ const images = [
     {src : 'paper/copyCat.png', caption : 'Copying other people\'s work exercise from freshman year'}
 ];
 
-
 const gallery = document.getElementById('gallery');
 const lightboxOverlay = document.getElementById('lightboxOverlay');
 const lightboxImage = document.getElementById('lightboxImage');
@@ -33,7 +32,8 @@ images.forEach(img => {
     lightboxOverlay.classList.add('active');
     lightboxOverlay.focus();
   });
-  gallery.appendChild(img);
+    gallery.appendChild(img);
+
 });
 
 
