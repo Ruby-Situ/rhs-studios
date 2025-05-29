@@ -34,6 +34,20 @@
   font-size: 1rem;
   color: #333;
 }
+.back-button {
+  background-color: #e95e9a;    /* Nice purple color */
+  color: white;                 /* White text */
+  padding: 10px 20px;           /* Size of the button */
+  border: none;                 /* Remove border */
+  border-radius: 5px;           /* Rounded corners */
+  cursor: pointer;              /* Pointer cursor on hover */
+  font-size: 16px;              /* Text size */
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #a52727;    /* Darker purple on hover */
+}
 
 /* ===== Lightbox Overlay ===== */
 #lightbox-overlay {
