@@ -1,4 +1,4 @@
-/* Reset some default spacing */
+
 body {
   margin: 0;
   padding: 0;
@@ -11,7 +11,7 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 15px;
   padding: 20px;
-  max-width: 1200px;
+  max-width: 200px;
   margin: auto;
 }
 
