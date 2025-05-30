@@ -48,7 +48,7 @@
   display: flex;
 }
 
-#closeButton {
+#lightboxClose {
   position: absolute;
   top: 20px;
   right: 20px;

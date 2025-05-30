@@ -15,7 +15,7 @@ const gallery = document.getElementById('gallery');
 const lightboxOverlay = document.getElementById('lightboxOverlay');
 const lightboxImage = document.getElementById('lightboxImage');
 const lightboxCaption = document.getElementById('lightboxCaption');
-const closeButton = document.getElementById('lightboxClose');
+const lightboxClose = document.getElementById('lightboxClose');
 
 images.forEach(img => {
   const figure = document.createElement('figure');
