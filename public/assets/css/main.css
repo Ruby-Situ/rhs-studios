@@ -1285,9 +1285,9 @@ input, select, textarea {
 			}
 
 		#header .logo {
-			width: 6rem;
-			height: 6rem;
-			line-height: 6rem;
+			width: 7rem;
+			height: 7rem;
+			line-height: 7rem;
 			border: solid 1px #ffffff;
 			border-radius: 100%;
 		}
@@ -1300,10 +1300,9 @@ input, select, textarea {
   width: 6rem;
   height: 6rem;
   border-radius: 50%;
-  background-image: url('albums/rhs-logo-cropped.png');
+  background-image: url('albums/rhs-logo.png');
   background-size: cover;
   background-position: center;
-  filter: brightness(0) invert(1);
   display: block;
 }
 
