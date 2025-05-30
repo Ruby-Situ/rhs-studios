@@ -63,7 +63,7 @@ document.addEventListener('keydown', (e) => {
 }
 });
 
-document.addEventListener('click', () => {
+lightboxClose.addEventListener('click', () => {
   lightboxOverlay.classList.remove('active');
   lightboxImage.src = '';
   lightboxCaption.caption = '';
