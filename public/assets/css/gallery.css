@@ -1,7 +1,6 @@
 .gallery {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
   justify-content: center;
   align-items: flex-start; 
 }
@@ -80,6 +79,8 @@
 .gallery-item {
   display: inline-block;
   width: 200px;
+  margin-bottom: 20px;
+  margin-top: 20px;
   background: white;
   border-radius: 8px;
   overflow: hidden;
