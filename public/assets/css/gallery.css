@@ -78,6 +78,7 @@
 
 .gallery-item {
   display: inline-block;
+  width: 200px;
   background: white;
   border-radius: 8px;
   overflow: hidden;
