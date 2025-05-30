@@ -18,6 +18,7 @@ const lightboxCaption = document.getElementById('lightboxCaption');
 const lightboxClose = document.getElementById('lightboxClose');
 const nextButton = document.getElementById('lightboxNext');
 const prevButton = document.getElementById('lightboxPrev');
+let curr = 0;
 
 function showImg(ind){
   const img = images[ind];
@@ -29,7 +30,7 @@ function showImg(ind){
   lightboxOverlay.focus();
 }
 
-images.forEach(img => {
+images.forEach((img, ind) => {
   const figure = document.createElement('figure');
   figure.className = 'gallery-item';
 
@@ -74,7 +75,7 @@ document.addEventListener('keydown', (e) => {
 lightboxClose.addEventListener('click', () => {
   lightboxOverlay.classList.remove('active');
   lightboxImage.src = '';
-  lightboxCaption.caption = '';
+  lightboxCaption.textContent  = '';
 });
 
 nextButton.addEventListener('click', () => 
