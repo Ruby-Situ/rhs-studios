@@ -1296,16 +1296,6 @@ input, select, textarea {
 				font-size: 2rem;
 			}
 
-#header .logo-image {
-  width: 6rem;
-  height: 6rem;
-  border-radius: 50%;
-  background-image: url('albums/rhs-logo.png');
-  background-size: cover;
-  background-position: center;
-  display: block;
-}
-
 
 		#header .content {
 			border-style: solid;
