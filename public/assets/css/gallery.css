@@ -30,6 +30,36 @@
   border-radius: 8px;
 }
 
+#lightboxOverlay {
+  /* existing styles */
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+#lightboxOverlay.active {
+  display: flex;
+}
+
+#closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 1100;
+}
+
 
 .gallery-item {
   background: white;
