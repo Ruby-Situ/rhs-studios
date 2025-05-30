@@ -16,6 +16,18 @@ const lightboxOverlay = document.getElementById('lightboxOverlay');
 const lightboxImage = document.getElementById('lightboxImage');
 const lightboxCaption = document.getElementById('lightboxCaption');
 const lightboxClose = document.getElementById('lightboxClose');
+const nextButton = document.getElementById('lightboxNext');
+const prevButton = document.getElementById('lightboxPrev');
+
+function showImg(ind){
+  const img = images[ind];
+  lightboxImage.src = img.src;
+  lightboxImage.alt = img.caption;
+  lightboxCaption.textContent = img.caption;
+  curr = ind;
+  lightboxOverlay.classList.add('active');
+  lightboxOverlay.focus();
+}
 
 images.forEach(img => {
   const figure = document.createElement('figure');
@@ -34,11 +46,7 @@ images.forEach(img => {
 
   image.addEventListener('click', () => 
   {
-    lightboxImage.src = img.src;
-    lightboxImage.alt = img.caption;
-    lightboxCaption.textContent = img.caption;
-    lightboxOverlay.classList.add('active');
-    lightboxOverlay.focus();
+    showImg(ind);
   });
 
 });
@@ -67,4 +75,16 @@ lightboxClose.addEventListener('click', () => {
   lightboxOverlay.classList.remove('active');
   lightboxImage.src = '';
   lightboxCaption.caption = '';
-})
+});
+
+nextButton.addEventListener('click', () => 
+{
+  const next = (curr - 1 + images.length) % images.length;
+    showImg(next);
+});
+
+prevButton.addEventListener('click', () =>
+{
+  const prev = (curr + 1 + images.length) % images.length;
+    showImg(prev);
+});

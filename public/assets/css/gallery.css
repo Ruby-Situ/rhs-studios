@@ -48,6 +48,8 @@
   display: flex;
 }
 
+#lightboxNext,
+#lightboxPrev,
 #lightboxClose {
   position: absolute;
   top: 20px;
@@ -58,6 +60,23 @@
   font-size: 2rem;
   cursor: pointer;
   z-index: 1100;
+}
+
+#lightboxClose{
+  top:20px;
+  right:20px;
+}
+
+#lightboxNext{
+  right:20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#lightboxPrev{
+  left:20px;
+  top: 50%;
+  transform : translateY(50%);
 }
 
 
