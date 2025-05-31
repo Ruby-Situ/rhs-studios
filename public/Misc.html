@@ -1,17 +1,22 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <button onclick="window.location.href='index.html';">Home</button>
-    <title>Some of my other fun work</title>
+	<button onclick="window.location.href='index.html';">Home</button>
+    <title>Pencil, Pen, Pastel, and Colored Pencil drawings</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="gallery.css">
+    <link rel="stylesheet" href="assets/css/gallery.css">
 </head>
 <body>
-    <div class="grid-container">
-        <div class="grid-item"><img src="assets/images/pic01.jpg" alt="Image 1"></div>
-        <div class="grid-item"><img src="assets/images/pic02.jpg" alt="Image 2"></div>
-        <div class="grid-item"><img src="assets/images/pic03.jpg" alt="Image 3"></div>
+    <div id = "gallery" class="gallery"></div>
+
+    <div id="lightboxOverlay" tabindex="-1" role="dialog" aria-modal="true" aria-label="Image preview">
+        <button id = "lightboxClose" aria-label = "X" >&times;</button>     
+        <button id="lightboxPrev" aria-label="Prev">&larr;</button>  
+        <img id = "lightboxImage" src = "" alt = ""/>
+        <button id="lightboxNext" aria-label="Next">&rarr;</button>
+        <div id = "lightboxCaption"></div>
     </div>
+    <script src = "assets/js/misc.js"></script>
 </body>
 </html>

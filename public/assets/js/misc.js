@@ -1,14 +1,6 @@
 
 const images = [
-  { src: 'painting/Joker.png', caption: 'Large Joker Painting' },
-  { src: 'painting/Pheonix.png', caption: '\'Night of the New Moon\'' },
-  { src: 'painting/pinkFlower.png', caption: 'Canvas piece made with real press preserved flowers' },
-  { src: 'painting/pinkFlower2.png', caption: 'Same, but indoors' },
-  { src: 'painting/yellowFlower.png', caption: 'Canvas piece made with real press preserved flowers' },
-  { src: 'painting/yellowFlower2.png', caption: 'Same, but indoors' },
-  { src: 'painting/riverHouse.png', caption: 'My first canvas painting, Bob Ross Tutorial' },
-  { src: 'painting/stag.png', caption: 'My second canvas painting, Bob Ross Tutorial, but with changes and the Harry Potter Stag Patronus' },
-  { src: 'painting/Jaws.png', caption: '\'Follow me between the jaws of fate\'' }
+  { src: 'painting/Joker.png', caption: 'Caption 1' },
 ];
 
 const gallery = document.getElementById('gallery');
