@@ -1,94 +1,95 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>Dimension by HTML5 UP</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<script src = "assets/js/main.js"></script>
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	
-	<body class="is-preload">
-    	<!-- Wrapper -->
-			<div id="wrapper">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact | RHS Studios</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
 
-				<!-- Header -->
-					<header id="header">
-							<div class="logo">
-								<img src="albums/rhs-logo.png" alt="RHS Studios Logo" style="max-width: 100%; height: auto;" />
-							</div>
-						<div class="content">
-							<div class="inner">
-								<h1>Horses</h1>
-								<p>test test test</p>
-							</div>
-						</div>
-					</header>
-			</div>
-			<section id="contact">
-				<div class="inner">
-					<h2>Contact Me</h2>
-					<form method="post" action="#">
-						<div class="fields">
-							<div class="field half">
-								<label for="name">Name</label>
-								<input type="text" name="name" id="name" />
-							</div>
-							<div class="field half">
-								<label for="email">Email</label>
-								<input type="email" name="email" id="email" />
-							</div>
-							<div class="field">
-								<label for="message">Message</label>
-								<textarea name="message" id="message" rows="5"></textarea>
-							</div>
-						</div>
-						<ul class="actions">
-							<li><input type="submit" value="Send Message" class="primary" /></li>
-						</ul>
-					</form>
-					<p id="status"></p>
-					<script>
-					const form = document.getElementById('contactForm');
-					const status = document.getElementById('status');
+  <!-- Wrapper -->
+  <div id="wrapper">
 
-					form.addEventListener('submit', async (e) => {
-					e.preventDefault();
+    <!-- Main -->
+    <div id="main">
+      <article id="contact">
+        <h2 class="major">Contact</h2>
 
-					const formData = {
-						name: form.name.value,
-						email: form.email.value,
-						message: form.message.value,
-					};
+        <form id="contactForm">
+          <div class="fields">
+            <div class="field half">
+              <label for="name">Name</label>
+              <input type="text" name="name" id="name" required />
+            </div>
+            <div class="field half">
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email" required />
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea name="message" id="message" rows="4" required></textarea>
+            </div>
+          </div>
+          <ul class="actions">
+            <li><button type="submit" class="primary">Send Message</button></li>
+            <li><input type="reset" value="Reset" /></li>
+          </ul>
+        </form>
 
-					status.textContent = 'Sending...';
+        <p id="formStatus" style="margin-top: 1em; color: #fff;"></p>
 
-					try {
-						const response = await fetch('/api/send-email', {
-						method: 'POST',
-						headers: { 'Content-Type': 'application/json' },
-						body: JSON.stringify(formData),
-						});
+        <ul class="icons">
+          <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+          <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+          <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+          <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+        </ul>
+      </article>
+    </div>
 
-						const result = await response.json();
+    <!-- Footer (optional) -->
+    <footer id="footer">
+      <p>&copy; RHS Studios. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+    </footer>
+  </div>
 
-						if (response.ok) {
-						status.textContent = 'Message sent successfully!';
-						form.reset();
-						} else {
-						status.textContent = 'Error: ' + result.message;
-						}
-					} catch (error) {
-						status.textContent = 'Error sending message.';
-					}
-					});
-					</script>
-				</div>
-			</section>
+  <!-- Scripts -->
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
 
-		</body>
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const status = document.getElementById('formStatus');
+
+      if (!name || !email || !message) {
+        status.textContent = 'Please fill out all fields.';
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/send-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, message })
+        });
+
+        const result = await res.json();
+
+        if (res.ok) {
+          status.textContent = '✅ Message sent successfully!';
+          document.getElementById('contactForm').reset();
+        } else {
+          status.textContent = '❌ Error: ' + (result.message || 'Something went wrong.');
+        }
+      } catch (err) {
+        status.textContent = '❌ Failed to send message. Try again later.';
+      }
+    });
+  </script>
+
+</body>
 </html>
