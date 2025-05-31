@@ -1285,8 +1285,11 @@ input, select, textarea {
 			}
 
 		#header .logo {
-
-			display: none !important;
+			width: 7rem;
+			height: 7rem;
+			line-height: 7rem;
+			border: none;
+			border-radius: 0;
 		}
 
 			#header .logo .icon:before {
