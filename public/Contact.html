@@ -51,6 +51,42 @@
 							<li><input type="submit" value="Send Message" class="primary" /></li>
 						</ul>
 					</form>
+					<p id="status"></p>
+					<script>
+					const form = document.getElementById('contactForm');
+					const status = document.getElementById('status');
+
+					form.addEventListener('submit', async (e) => {
+					e.preventDefault();
+
+					const formData = {
+						name: form.name.value,
+						email: form.email.value,
+						message: form.message.value,
+					};
+
+					status.textContent = 'Sending...';
+
+					try {
+						const response = await fetch('/api/send-email', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify(formData),
+						});
+
+						const result = await response.json();
+
+						if (response.ok) {
+						status.textContent = 'Message sent successfully!';
+						form.reset();
+						} else {
+						status.textContent = 'Error: ' + result.message;
+						}
+					} catch (error) {
+						status.textContent = 'Error sending message.';
+					}
+					});
+					</script>
 				</div>
 			</section>
 
