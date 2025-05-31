@@ -1,46 +1,47 @@
 import nodemailer from 'nodemailer';
+import formidable from 'formidable-serverless';
+
+export const config = {
+  api: {
+    bodyParser: false, // Required to use formidable
+  },
+};
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-  console.log("SMTP HOST:", process.env.SMTP_HOST);
+  if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
 
-  const { name, email, message } = req.body;
+  const form = new formidable.IncomingForm();
 
-  if (!name || !email || !message) {
-    return res.status(400).json({ error: 'Missing fields' });
-  }
+  form.parse(req, async (err, fields) => {
+    if (err) {
+      console.error('Error parsing form:', err);
+      return res.status(500).send('Form error');
+    }
 
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT) || 587,
-    secure: false, // use TLS
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
+    const { name, email, message } = fields;
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
+      },
+    });
+
+    try {
+      await transporter.sendMail({
+        from: email,
+        to: process.env.GMAIL_USER,
+        subject: `Contact from ${name}`,
+        html: `<p><strong>Name:</strong> ${name}</p>
+               <p><strong>Email:</strong> ${email}</p>
+               <p>${message}</p>`,
+      });
+
+      return res.status(200).send('Message sent successfully.');
+    } catch (error) {
+      console.error('Email send error:', error);
+      return res.status(500).send('Error sending message.');
+    }
   });
-
-  const mailOptions = {
-    from: `"${name}" <${email}>`,
-    to: process.env.MY_EMAIL,
-    subject: `New contact form message from ${name}`,
-    text: `You have a new message from your website:
-
-Name: ${name}
-Email: ${email}
-
-Message:
-${message}
-    `,
-  };
-
-  try {
-    await transporter.sendMail(mailOptions);
-    res.status(200).json({ message: 'Email sent successfully' });
-  } catch (error) {
-    console.error('Error sending mail:', error);
-    res.status(500).json({ error: 'Failed to send email' });
-  }
 }
