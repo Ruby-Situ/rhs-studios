@@ -27,6 +27,9 @@ export default async function handler(req, res) {
         pass: process.env.GMAIL_PASS,
       },
     });
+    console.log('GMAIL_USER:', process.env.GMAIL_USER || 'NOT SET');
+    console.log('GMAIL_PASS:', process.env.GMAIL_PASS ? 'SET' : 'NOT SET');
+
 
     try {
       await transporter.sendMail({
