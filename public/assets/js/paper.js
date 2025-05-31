@@ -1,8 +1,21 @@
 const images = [
     {src : 'paper/selfPortrait.png', caption :'First time drawing a face, Self portrait at 15'},
     {src : 'paper/eye.png', caption : 'Eye drawing practice from freshman year highschool'},
-    {src : 'paper/copyCat.png', caption : 'Copying other people\'s work exercise from freshman year'}
-];
+    {src : 'paper/copyCat.png', caption : 'Copying other people\'s work exercise from freshman year'},
+    {src : 'paper/Spencer.png', caption : 'Portrait of Spencer Charnas (Ice Nine Kills'},
+    {src : 'paper/LH.png', caption : 'Side portrait of Luke Hemmings (5 Seconds of Summer)'},
+    {src : 'paper/redHOod.png', caption : 'Fan art of Red Hood/ Jason Todd from DC Comics'},
+    {src : 'paper/bucky.png', caption : 'Fan art of the Winter Soldier/Bucky Barnes from Marvel'},
+    {src : 'paper/deadpool.png', caption : 'Fan art of Deadpool from Marvel'},
+    {src : 'paper/lh2.png', caption : 'Portrait of Luke Hemmings (5 Seconds of Summer)'},
+    {src : 'paper/bike.png', caption : ''},
+    {src : 'paper/car.png', caption : ''},
+    {src : 'paper/car2.png', caption : ''},
+    {src : 'paper/gt3.png', caption : 'GT3 RS'},
+    {src : 'paper/gt350.png', caption : 'GT350 : My dream car'},
+    {src : 'paper/gt500.png', caption : 'GT500'},
+    {src : 'paper/mm93.png', caption : 'Marc Marquez'}
+  ];
 
 const gallery = document.getElementById('gallery');
 const lightboxOverlay = document.getElementById('lightboxOverlay');
