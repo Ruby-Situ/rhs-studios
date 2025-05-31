@@ -2,9 +2,62 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Contact Page Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Me</title>
 </head>
 <body>
-  <h1>Contact page is working!</h1>
+  <h1>Contact Me</h1>
+  <form id="contactForm">
+    <label>
+      Your Name:<br />
+      <input type="text" name="name" required />
+    </label><br /><br />
+    <label>
+      Your Email:<br />
+      <input type="email" name="email" required />
+    </label><br /><br />
+    <label>
+      Message:<br />
+      <textarea name="message" rows="5" required></textarea>
+    </label><br /><br />
+    <button type="submit">Send Message</button>
+  </form>
+
+  <p id="responseMsg"></p>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const responseMsg = document.getElementById('responseMsg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      responseMsg.textContent = 'Sending...';
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        const result = await res.json();
+        if (res.ok) {
+          responseMsg.style.color = 'green';
+          responseMsg.textContent = 'Message sent successfully!';
+          form.reset();
+        } else {
+          responseMsg.style.color = 'red';
+          responseMsg.textContent = result.error || 'Something went wrong.';
+        }
+      } catch (error) {
+        responseMsg.style.color = 'red';
+        responseMsg.textContent = 'Error sending message.';
+      }
+    });
+  </script>
 </body>
 </html>
