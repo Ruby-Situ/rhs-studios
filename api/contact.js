@@ -17,8 +17,7 @@ export default async function handler(req, res) {
       console.error('Error parsing form:', err);
       return res.status(500).send('Form error');
     }
-
-    const { name, email, message } = fields;
+    const { name, email, message, category } = fields;
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -38,6 +37,7 @@ export default async function handler(req, res) {
         subject: `Contact from ${name}`,
         html: `<p><strong>Name:</strong> ${name}</p>
                <p><strong>Email:</strong> ${email}</p>
+               <p><strong>Category: </strong> ${category}</p>
                <p>${message}</p>`,
       });
 

@@ -56,6 +56,15 @@
       <input type="email" name="email" required />
     </label><br /><br />
 
+    <label for="category">Category</label>
+      <select name="category" id="category">
+        <option value="">-</option>
+        <option value="general">General</option>
+        <option value="question">Question</option>
+        <option value="commission">Commission</option>
+        <option value="other">Other</option>
+      </select><br /><br />
+      
     <label>
       Your Message:<br />
       <textarea name="message" rows="5" required></textarea>
@@ -66,7 +75,7 @@
 
   <div id="success-message" style="display: none;">
     <p>Message sent successfully. I will respond as soon as possible. 🙂</p>
-    <button onclick="goBack()">Return</button>
+    <button onclick="window.location.href='index.html'">Return</button>
   </div>
 </body>
 </html>
