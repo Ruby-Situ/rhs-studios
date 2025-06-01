@@ -14,7 +14,8 @@ const images = [
     {src : 'paper/gt3.png', caption : 'GT3 RS'},
     {src : 'paper/gt350.png', caption : 'GT350 : My dream car'},
     {src : 'paper/gt500.png', caption : 'GT500'},
-    {src : 'paper/mm93.png', caption : 'Marc Marquez'}
+    {src : 'paper/mm93.png', caption : 'Marc Marquez'},
+    {src : 'paper/f5.png', caption : ''}
   ];
 
 const gallery = document.getElementById('gallery');
