@@ -44,7 +44,18 @@
   font-size: 16px;              /* Text size */
   transition: background-color 0.3s ease;
 }
-
+.homeButton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ee7777;
+    color: rgb(177, 177, 177);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    top: 100%;
+    left: 50%;
+    right: 50%;
+}
 .back-button:hover {
   background-color: #a52727;    /* Darker purple on hover */
 }
