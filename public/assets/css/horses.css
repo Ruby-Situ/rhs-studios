@@ -26,9 +26,9 @@ body {
 /* Styling for image buttons */
 .image-button {
     display: inline-block;
-    width: 100px;               /* Set fixed width for the button */
-    height: 100px;              /* Set fixed height for the button */
-    border: none;               /* Remove button border */
+    width: 300px;               /* Set fixed width for the button */
+    height: 300px;              /* Set fixed height for the button */
+    border: black;               /* Remove button border */
     background: none;           /* Remove background */
     cursor: pointer;           /* Make the button clickable */
 }

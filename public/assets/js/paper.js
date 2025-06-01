@@ -1,7 +1,7 @@
 const images = [
     {src : 'paper/selfPortrait.png', caption :'First time drawing a face, Self portrait at 15'},
     {src : 'paper/eye.png', caption : 'Eye drawing practice from freshman year highschool'},
-    {src : 'paper/copyCat.png', caption : 'Copying other people\'s work exercise from freshman year'},
+    {src : 'paper/copyCat.png', caption : 'Exercise of copying other people\'s work from freshman year'},
     {src : 'paper/Spencer.png', caption : 'Portrait of Spencer Charnas (Ice Nine Kills'},
     {src : 'paper/LH.png', caption : 'Side portrait of Luke Hemmings (5 Seconds of Summer)'},
     {src : 'paper/redHOod.png', caption : 'Fan art of Red Hood/ Jason Todd from DC Comics'},
