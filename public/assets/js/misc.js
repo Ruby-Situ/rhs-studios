@@ -1,6 +1,5 @@
 
 const images = [
-  { src: 'painting/Joker.png', caption: 'Caption 1' },
 ];
 
 const gallery = document.getElementById('gallery');
