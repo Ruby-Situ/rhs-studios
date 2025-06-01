@@ -24,6 +24,7 @@
         if (response.ok) {
           form.style.display = 'none';
           successMessage.style.display = 'block';
+          homeBtn.style.display = 'none';
         } else {
           alert('Something went wrong. Please try again.');
         }
@@ -33,13 +34,14 @@
         successMessage.style.display = 'none';
         form.reset();
         form.style.display = 'block';
+        homeBtn.style.display = 'inline-block';
       };
     });
   </script>
 </head>
 
 <body>
-  <a href="index.html" class="homeButton">Home</a>
+  <a href="index.html" class="homeButton" id = "homeBtn">Home</a>
 
   <h1>Contact Me</h1>
 
