@@ -2,9 +2,10 @@
 body{
     margin: 20px;
     background-color: #1f1f1f;
+    color:rgb(255, 255, 255);
 }
 .image-container{
-    float:right;
+    float: right;
     margin: 10px;
     width: 250px;
     text-align: center;

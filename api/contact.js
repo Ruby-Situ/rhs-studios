@@ -41,10 +41,15 @@ export default async function handler(req, res) {
                <p>${message}</p>`,
       });
 
-      return res.status(200).send('Message sent successfully. I will respond as soon as possible. :)');
+      return res.status(200).json({
+        success: true,
+        message: 'Message sent successfully. I will respond as soon as possible 🙂'
+      });
     } catch (error) {
       console.error('Email send error:', error);
-      return res.status(500).send('Error sending message.');
+      return res.status(500).json({
+        success: false,
+        message: 'Error sending message.'});
     }
   });
 }
