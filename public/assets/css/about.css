@@ -1,0 +1,29 @@
+
+body{
+    margin: 20px;
+    background-color: #1f1f1f;
+}
+.image-container{
+    float:right;
+    margin: 10px;
+    width: 250px;
+    text-align: center;
+}
+.image-container img{
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+.caption{
+    font-size: 14px;
+    color: antiquewhite;
+}
+.homeButton {
+    padding: 10px 20px;
+    background-color: #707070;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    float: right;
+}
