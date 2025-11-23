@@ -66,15 +66,10 @@ lightboxOverlay.addEventListener('click', (e) =>
 
 document.addEventListener('keydown', (e) => {
   if(e.key === 'Escape' && lightboxOverlay.classList.contains('active')){
+  lightboxCaption.classList.remove('active');
   lightboxImage.src = '';
   lightboxCaption.textContent = '';
 }
-});
-
-lightboxClose.addEventListener('click', () => {
-  lightboxOverlay.classList.remove('active');
-  lightboxImage.src = '';
-  lightboxCaption.textContent  = '';
 });
 
 nextButton.addEventListener('click', () => 

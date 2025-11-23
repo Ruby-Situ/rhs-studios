@@ -27,4 +27,21 @@ body{
     border-radius: 25px;
     font-weight: bold;
     float: right;
+
+    box-shadow: 0 5px 0 #4f4f4f;
+    transition: all 0.1s ease;
+}
+
+.homeButton:active{
+    box-shadow: 0 2px 0 #4f4f4f;
+    transform : translateY(3px);
+}
+
+.hr{
+    border: 0;
+    height: 3px;
+}
+
+.belowHR{
+    background-color: #2d2d2d;
 }
