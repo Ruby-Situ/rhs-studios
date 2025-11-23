@@ -35,29 +35,18 @@
   color: #333;
 }
 .back-button {
-  background-color: #e95e9a;    /* Nice purple color */
-  color: white;                 /* White text */
-  padding: 10px 20px;           /* Size of the button */
-  border: none;                 /* Remove border */
-  border-radius: 5px;           /* Rounded corners */
-  cursor: pointer;              /* Pointer cursor on hover */
-  font-size: 16px;              /* Text size */
+  background-color: #e95e9a;    
+  color: white;                 
+  padding: 10px 20px;           
+  border: none;                 
+  border-radius: 5px;           
+  cursor: pointer;              
+  font-size: 16px;              
   transition: background-color 0.3s ease;
 }
-.homeButton {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #707070;
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    border-radius: 25px;
-    font-weight: bold;
-    top: 10px;
-    left: 50%;
-    position: fixed;
-}
+
 .back-button:hover {
-  background-color: #a52727;    /* Darker purple on hover */
+  background-color: #a52727;    
 }
 
 /* ===== Lightbox Overlay ===== */
