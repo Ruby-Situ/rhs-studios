@@ -48,30 +48,22 @@ images.forEach((img, ind) => {
 
 });
 
-
-
-lightboxOverlay.addEventListener('click', (e) => 
-{
-  if(e.target === lightboxOverlay)
-  {
-    lightboxCaption.classList.remove('active');
+lightboxOverlay.addEventListener('click', (e) => {
+  if (e.target === lightboxOverlay) {
+    lightboxOverlay.classList.remove('active'); // hide overlay
     lightboxImage.src = '';
     lightboxCaption.textContent = '';
   }
 });
 
 document.addEventListener('keydown', (e) => {
-  if(e.key === 'Escape' && lightboxOverlay.classList.contains('active')){
-  lightboxImage.src = '';
-  lightboxCaption.textContent = '';
-}
+  if (e.key === 'Escape' && lightboxOverlay.classList.contains('active')) {
+    lightboxOverlay.classList.remove('active'); // hide overlay
+    lightboxImage.src = '';
+    lightboxCaption.textContent = '';
+  }
 });
 
-lightboxClose.addEventListener('click', () => {
-  lightboxOverlay.classList.remove('active');
-  lightboxImage.src = '';
-  lightboxCaption.textContent  = '';
-});
 
 nextButton.addEventListener('click', () => 
 {
