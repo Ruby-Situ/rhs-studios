@@ -1,5 +1,10 @@
 
 const images = [
+  {src : 'misc/blankMare.jpg', caption : 'Original resin medallion piece: \"Loving Mare\"'},
+  {src : 'misc/trit left.jpg', caption : 'Original traditional resin, \"Triton\"'},
+  {src : 'misc/blue1.jpg', caption : 'Painted blue copy of \"Loving Mare\"'},
+  {src : 'misc/brown3.jpg', caption : 'Realistic version'}, 
+  {src : 'misc/uni1.jpg', caption : 'Unicorn Modification'}
 ];
 
 const gallery = document.getElementById('gallery');
