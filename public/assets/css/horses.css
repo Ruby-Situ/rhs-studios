@@ -54,7 +54,26 @@ body {
 
 /* Optional: Add hover effect */
 .image-button:hover img {
-    opacity: 0.8;               /* Slight opacity change on hover */
+    opacity: 0.9;               /* Slight opacity change on hover */
+}
+
+.hover-text {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.image-button:hover .hover-text {
+    opacity: 1;
 }
 
 /* Responsive: Stack buttons on smaller screens */
