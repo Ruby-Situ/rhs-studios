@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 40px;
   font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
+  background-color: #555555;
 }
 
 .homeButton {
@@ -12,7 +12,7 @@ body {
     background-color: #707070;
     color: rgb(255, 255, 255);
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 25px;
     font-weight: bold;
     right: 20px;
     position: fixed;
