@@ -50,7 +50,8 @@ images.forEach((img, ind) => {
 
 lightboxOverlay.addEventListener('click', (e) => {
   if (e.target === lightboxOverlay) {
-    lightboxOverlay.classList.remove('active'); // hide overlay
+    lightboxOverlay.classList.remove('active'); 
+    lightboxCaption.classList.remove('active');
     lightboxImage.src = '';
     lightboxCaption.textContent = '';
   }
@@ -58,7 +59,8 @@ lightboxOverlay.addEventListener('click', (e) => {
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && lightboxOverlay.classList.contains('active')) {
-    lightboxOverlay.classList.remove('active'); // hide overlay
+    lightboxOverlay.classList.remove('active'); 
+    lightboxCaption.classList.remove('active');
     lightboxImage.src = '';
     lightboxCaption.textContent = '';
   }

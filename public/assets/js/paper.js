@@ -66,6 +66,7 @@ lightboxOverlay.addEventListener('click', (e) =>
   if(e.target === lightboxOverlay)
   {
     lightboxCaption.classList.remove('active');
+    lightboxOverlay.classList.remove('active'); 
     lightboxImage.src = '';
     lightboxCaption.textContent = '';
   }
@@ -73,9 +74,10 @@ lightboxOverlay.addEventListener('click', (e) =>
 
 document.addEventListener('keydown', (e) => {
   if(e.key === 'Escape' && lightboxOverlay.classList.contains('active')){
-  lightboxCaption.classList.remove('active');
-  lightboxImage.src = '';
-  lightboxCaption.textContent = '';
+    lightboxCaption.classList.remove('active');
+    lightboxOverlay.classList.remove('active'); 
+    lightboxImage.src = '';
+    lightboxCaption.textContent = '';
 }
 });
 

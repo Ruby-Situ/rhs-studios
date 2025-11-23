@@ -1,5 +1,6 @@
 
 const images = [
+  {src: 'painting/fluffy.jpg', caption: '\'So now you can bink forever\''},
   { src: 'painting/Joker.png', caption: 'Large Joker Painting' },
   { src: 'painting/Pheonix.png', caption: '\'Night of the New Moon\'' },
   { src: 'painting/pinkFlower.png', caption: 'Canvas piece made with real press preserved flowers' },
@@ -52,13 +53,12 @@ images.forEach((img, ind) => {
 
 });
 
-
-
 lightboxOverlay.addEventListener('click', (e) => 
 {
   if(e.target === lightboxOverlay)
   {
     lightboxCaption.classList.remove('active');
+    lightboxOverlay.classList.remove('active'); 
     lightboxImage.src = '';
     lightboxCaption.textContent = '';
   }
@@ -66,9 +66,10 @@ lightboxOverlay.addEventListener('click', (e) =>
 
 document.addEventListener('keydown', (e) => {
   if(e.key === 'Escape' && lightboxOverlay.classList.contains('active')){
-  lightboxCaption.classList.remove('active');
-  lightboxImage.src = '';
-  lightboxCaption.textContent = '';
+    lightboxCaption.classList.remove('active');
+    lightboxOverlay.classList.remove('active'); 
+    lightboxImage.src = '';
+    lightboxCaption.textContent = '';
 }
 });
 
