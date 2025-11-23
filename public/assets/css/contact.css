@@ -9,13 +9,21 @@ body {
 .homeButton {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #707070;
+    background-color: #474747;
     color: rgb(255, 255, 255);
     text-decoration: none;
     border-radius: 25px;
     font-weight: bold;
     right: 20px;
     position: fixed;
+
+    box-shadow: 0 5px 0 #232323;
+    transition: all 0.1s ease;
+}
+
+.homeButton:active {
+    box-shadow: 0 2px 0 #232323;
+    transform: translateY(3px);
 }
 
 .contact-box {
