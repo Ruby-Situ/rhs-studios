@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
   const gallery = document.getElementById('gallery');
   if (!gallery) {
-    console.error('Gallery container not found');
+    console.error('Gallery not found');
     return;
   }
 
   const category = gallery.dataset.category || '';
   if (!category) {
-    console.error('No category specified in data-category attribute');
+    console.error('No category specified');
     return;
   }
 

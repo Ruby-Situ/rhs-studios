@@ -73,6 +73,13 @@ document.addEventListener('keydown', (e) => {
 }
 });
 
+lightboxClose.addEventListener('click', () => {
+  lightboxCaption.classList.remove('active');
+  lightboxOverlay.classList.remove('active');
+  lightboxImage.src = '';
+  lightboxCaption.textContent = '';
+});
+
 nextButton.addEventListener('click', () => 
 {
   const next = (curr - 1 + images.length) % images.length;
